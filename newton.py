@@ -24,7 +24,8 @@ print(x)
 
 #26bit numerator /5bit denominator
 numerator = 0x12eae94c
-denominator = 0xc
+#numerator = 0x140fe386
+denominator =12 
 remainder = 1
 x = 1
 loop = 12
@@ -38,18 +39,19 @@ while(loop >0):
         remainder=0x20
         accu_div = 0
     else:
-        if(denominator < remainder*2):
+        if(denominator <= remainder*2):
             rsh=1
-        elif(denominator < remainder*4):
+        elif(denominator <= remainder*4):
             rsh=2
-        elif(denominator < remainder*8):
+        elif(denominator <= remainder*8):
             rsh=3
-        elif(denominator < remainder*16):
+        elif(denominator <= remainder*16):
             rsh=4
         else:
             rsh=5
-
+        print("rsh",rsh)
         remainder = remainder*2**rsh - denominator 
+        print("remainder:",remainder)
         accu_div = accu_div>>(rsh-1)   
         incb     = accu_div & 0x1
         accu_div = accu_div>>1   
