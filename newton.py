@@ -24,7 +24,7 @@ print(x)
 
 #26bit numerator /5bit denominator
 numerator = 0x140fe386
-denominator =12
+denominator =0x321
 remainder = 1
 x = 1
 loop = 12
@@ -55,7 +55,7 @@ while(accu_div>0):
         accu_div = accu_div>>(rsh-1)   
         incb     = accu_div & 0x1
         accu_div = accu_div>>1   
-        print("accu_div",accu_div)
+        #print("accu_div",accu_div)
 
     avg_tmp = avg_tmp + accu_div + incb
 
@@ -78,8 +78,34 @@ while(i>=0):
     B=B>>1
     i=i-1
     
-print(C)
-print(A)
+print("div_res",C)
+print("div_quo",A)
+
+#another similar way
+A=numerator
+B=denominator
+FN=8
+C=0
+i=0
+RA=(A&(1<<31))!=0
+Q=0
+while(i<=(32+FN)):
+    if(RA>=B):
+        RA=RA-B
+        Q=(Q<<1)+1
+    else:
+        Q=Q<<1
+    if(i<32+FN):
+        if(i<=31) :
+            A_SHIFT_BIT = (A & (1<<(31-i))) !=0 
+        else:
+            A_SHIFT_BIT = 0
+        RA=(RA<<1) + A_SHIFT_BIT 
+    i=i+1
+    
+print("Q",Q)
+print("RA",RA)
+
 
 
 #module div #(
